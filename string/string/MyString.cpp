@@ -16,9 +16,8 @@ MyString::~MyString()
 	Clear();
 }
 
-MyString::MyString(const MyString & otherStr)
+MyString::MyString(const MyString & otherStr): len(otherStr.len)
 {
-	len = otherStr.len;
 	mystrptr = new char[ len ];
 
 	//tried to do that without any refernece to string.h
@@ -26,15 +25,13 @@ MyString::MyString(const MyString & otherStr)
 		*(mystrptr + i) = *(otherStr.mystrptr + i);
 }
 
-MyString::MyString(const char* str, size_t otherLen)
+MyString::MyString(const char* str, size_t otherLen): len(otherLen)
 {
-	len = otherLen;
 	mystrptr = new char[ len ];
 
 	//tried to do that without any refernece to string.h
 	for(size_t i = 0; i < len; i++)
 		*(mystrptr + i) = *(str + i);
-
 }
 
 size_t MyString::GetLength() const
