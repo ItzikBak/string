@@ -6,23 +6,23 @@ public:
 	MyString();
 	~MyString();
 
-	MyString(MyString&);
-	MyString(char*, size_t);
+	MyString(const MyString&);
+	MyString(const char*, size_t);
 
-	size_t GetLength();
+	size_t GetLength() const;
 
-	void Assign(MyString& otherString);
-	void Assign(char* otherString, size_t otherLen);
+	void Assign(const MyString& otherString);
+	void Assign(const char* otherString, size_t otherLen);
 
-	char CharAt(int index);
+	char CharAt(int index) const;
 
 	void Append(MyString& otherString);
 	void Append(char* otherString, size_t otherLen);
 
-	int Compare(MyString& otherString);
-	int Compare(char* otherString, size_t otherLen);
+	int Compare(MyString& otherString) const;
+	int Compare(char* otherString, size_t otherLen) const;
 	
-	bool IsEmpty();
+	bool IsEmpty() const;
 	
 	void Clear();
 

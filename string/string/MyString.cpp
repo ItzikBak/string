@@ -16,7 +16,7 @@ MyString::~MyString()
 	Clear();
 }
 
-MyString::MyString(MyString & otherStr)
+MyString::MyString(const MyString & otherStr)
 {
 	len = otherStr.len;
 	mystrptr = new char[ len ];
@@ -26,7 +26,7 @@ MyString::MyString(MyString & otherStr)
 		*(mystrptr + i) = *(otherStr.mystrptr + i);
 }
 
-MyString::MyString(char* str, size_t otherLen)
+MyString::MyString(const char* str, size_t otherLen)
 {
 	len = otherLen;
 	mystrptr = new char[ len ];
@@ -37,12 +37,12 @@ MyString::MyString(char* str, size_t otherLen)
 
 }
 
-size_t MyString::GetLength()
+size_t MyString::GetLength() const
 {
 	return len;
 }
 
-void MyString::Assign(MyString& otherString)
+void MyString::Assign(const MyString& otherString)
 {
 	if(mystrptr)
 	{
@@ -64,7 +64,7 @@ void MyString::Assign(MyString& otherString)
 		*(mystrptr + i) = *(otherString.mystrptr + i);
 }
 
-void MyString::Assign(char * otherString, size_t otherLen)
+void MyString::Assign(const char * otherString, size_t otherLen)
 {
 	if(mystrptr)
 	{
@@ -87,7 +87,7 @@ void MyString::Assign(char * otherString, size_t otherLen)
 
 }
 
-char MyString::CharAt(int index)
+char MyString::CharAt(int index) const
 {
 	if(index >= len)
 		return '\0';
@@ -125,7 +125,7 @@ void MyString::Append(char * otherString, size_t otherLen)
 
 }
 
-int MyString::Compare(MyString & otherString)
+int MyString::Compare(MyString & otherString) const
 {
 	size_t counter = 0;
 	size_t minLen = min(len, otherString.len);
@@ -140,7 +140,7 @@ int MyString::Compare(MyString & otherString)
 	return 0;
 }
 
-int MyString::Compare(char * otherString, size_t otherLen)
+int MyString::Compare(char * otherString, size_t otherLen) const
 {
 	size_t counter = 0;
 	size_t minLen = min(len, otherLen);
@@ -155,7 +155,7 @@ int MyString::Compare(char * otherString, size_t otherLen)
 	return 0;
 }
 
-bool MyString::IsEmpty()
+bool MyString::IsEmpty() const
 {
 	return len > 0;
 }
