@@ -16,6 +16,16 @@ MyString::~MyString()
 	Clear();
 }
 
+MyString::MyString(MyString & otherStr)
+{
+	len = otherStr.len;
+	mystrptr = new char[ len ];
+
+	//tried to do that without any refernece to string.h
+	for(size_t i = 0; i < len; i++)
+		*(mystrptr + i) = *(otherStr.mystrptr + i);
+}
+
 MyString::MyString(char* str, size_t otherLen)
 {
 	len = otherLen;
@@ -54,6 +64,29 @@ void MyString::Assign(MyString& otherString)
 		*(mystrptr + i) = *(otherString.mystrptr + i);
 }
 
+void MyString::Assign(char * otherString, size_t otherLen)
+{
+	if(mystrptr)
+	{
+		if(otherLen != len)
+		{
+			delete[] mystrptr;
+			mystrptr = new char[ otherLen ];
+			len = otherLen;
+		}
+	}
+	else
+	{
+		mystrptr = new char[ otherLen ];
+		len = otherLen;
+	}
+
+	//tried to do that without any refernece to string.h
+	for(size_t i = 0; i < len; i++)
+		*(mystrptr + i) = *(otherString + i);
+
+}
+
 char MyString::CharAt(int index)
 {
 	if(index >= len)
@@ -76,6 +109,22 @@ void MyString::Append(MyString & otherString)
 	len += otherString.len;
 }
 
+void MyString::Append(char * otherString, size_t otherLen)
+{
+	char* newstr = new char[ len + otherLen ];
+
+	for(size_t i = 0; i < len; i++)
+		*(newstr + i) = *(mystrptr + i);
+
+	for(size_t i = len; i < len + otherLen; i++)
+		*(newstr + i) = *(otherString + i);
+
+	delete[] mystrptr;
+	mystrptr = newstr;
+	len += otherLen;
+
+}
+
 int MyString::Compare(MyString & otherString)
 {
 	size_t counter = 0;
@@ -87,6 +136,21 @@ int MyString::Compare(MyString & otherString)
 	if(CharAt(counter) > otherString.CharAt(counter))
 		return 1;
 	else if(CharAt(counter) < otherString.CharAt(counter))
+		return -1;
+	return 0;
+}
+
+int MyString::Compare(char * otherString, size_t otherLen)
+{
+	size_t counter = 0;
+	size_t minLen = min(len, otherLen);
+
+	while(CharAt(counter) == *(otherString + counter)
+		&& counter <= minLen)
+		counter++;
+	if(CharAt(counter) > *(otherString + counter))
+		return 1;
+	else if(CharAt(counter) < *(otherString + counter))
 		return -1;
 	return 0;
 }
